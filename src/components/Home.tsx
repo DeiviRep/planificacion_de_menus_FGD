@@ -38,26 +38,67 @@ const Home = () => {
   const urlImage =
     "https://media.istockphoto.com/id/668221242/es/foto/comunicaci%C3%B3n-de-la-gente-partido-hablando-el-concepto-de-felicidad.webp?b=1&s=612x612&w=0&k=20&c=UC2jjeRL7pk8hjsaPMkDQlGXFgZ4QNR4tcp3F0Ac7iI=";
 
+  const idsSemana1 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+  const idsSemana2 = [
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+  ];
+  const idsSemana3 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+  const idsSemana4 = [
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "37",
+    "38",
+    "39",
+    "40",
+  ];
+  const idsSemana5 = [
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+  ];
+
   const getMenuList = (iconIndex: number) => {
     switch (iconIndex) {
       case 0:
-        return DataMenu.menus;
+        return DataMenu.menus.filter(
+          (item) => !idsSemana1.includes(item.id.toString())
+        );
       case 1:
-        return [
-          { id: 3, nombre: "Menú Italiano" },
-          { id: 4, nombre: "Menú Oriental" },
-          // Agrega más menús según el icono seleccionado
-        ];
+        return DataMenu.menus.filter(
+          (item) => !idsSemana2.includes(item.id.toString())
+        );
       case 2:
-        return [
-          { id: 5, nombre: "Menú de la Abuela" },
-          { id: 6, nombre: "Menú de Fiesta" },
-          // Agrega más menús según el icono seleccionado
-        ];
+        return DataMenu.menus.filter(
+          (item) => !idsSemana3.includes(item.id.toString())
+        );
       case 3:
-        return DataMenu.menus;
+        return DataMenu.menus.filter(
+          (item) => !idsSemana4.includes(item.id.toString())
+        );
       default:
-        return DataMenu.menus;
+        return DataMenu.menus.filter(
+          (item) => !idsSemana5.includes(item.id.toString())
+        );
     }
   };
 
@@ -144,21 +185,27 @@ const Home = () => {
               <h2>Menús:</h2>
               <ul>
                 {menus.map((menu) => (
-                  <li key={menu.id}>{menu.nombre}</li>
+                  <>
+                    <li key={menu.id}>{menu.nombre}</li>
+                    <Card
+                      className="platosDeMenu"
+                      sx={{
+                        "&:hover": {
+                          ".platosDeMenu": {},
+                        },
+                      }}
+                    >
+                      <Box>
+                        {menu.platos.map((plato) => (
+                          <Typography>
+                            Cantidad de Porciones: {plato.porciones}
+                          </Typography>
+                        ))}
+                      </Box>
+                    </Card>
+                  </>
                 ))}
               </ul>
-              <Card
-                className="platosDeMenu"
-                sx={{
-                  "&:hover": {},
-                }}
-              >
-                <Box>
-                  {menus.map((plato) => (
-                    <Typography>{plato.nombre}</Typography>
-                  ))}
-                </Box>
-              </Card>
             </div>
           </Box>
         </Grid>
