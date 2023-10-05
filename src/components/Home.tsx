@@ -170,7 +170,8 @@ const Home = () => {
         >
           <Box
             sx={{
-              width: "50%",
+              width: "24rem",
+              position: "relative",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -183,6 +184,7 @@ const Home = () => {
               variant="outlined"
               sx={{
                 p: 2,
+                width: "90%",
                 alignSelf: "start",
               }}
             >

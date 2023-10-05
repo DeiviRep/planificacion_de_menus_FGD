@@ -12,40 +12,64 @@ export interface DataProps {
   selected?: boolean;
   onSelect?: () => void;
 }
-const MenuList: FC<DataProps> = ({ id, name, platos }) => {
+const MenuList: FC<DataProps> = ({
+  id,
+  name = "escoja un plato de la semana",
+  platos,
+}) => {
   return (
     <>
-      <Box
-        sx={{
-          "&:hover": {
-            ".platosDeMenu": {
-              visibility: "visible",
-              background: "gray",
-            },
-          },
-        }}
-      >
-        <IconButton>
-          <Typography key={id}>{name}</Typography>
-        </IconButton>
-        <Card
-          variant="outlined"
-          className="platosDeMenu"
+      {name ? (
+        <Box
           sx={{
-            visibility: "hidden",
-            position: "absolute",
-            zIndex: "999",
-            right: "5rem",
-            p: 2,
+            width: "100%",
+            "&:hover": {
+              ".platosDeMenu": {
+                visibility: "visible",
+                background: "gray",
+              },
+            },
           }}
         >
-          <Box>
-            {platos.map((plato) => (
-              <Typography>Cantidad de Porciones: {plato.porciones}</Typography>
-            ))}
-          </Box>
-        </Card>
-      </Box>
+          <IconButton
+            sx={{
+              borderRadius: 0,
+              display: "flex",
+              alignItems: "start",
+              justifyContent: "start",
+              width: "100%",
+              "&:hover": {
+                background: "gray",
+              },
+            }}
+          >
+            <Typography key={id}>{name}</Typography>
+          </IconButton>
+          <Card
+            variant="outlined"
+            className="platosDeMenu"
+            sx={{
+              visibility: "hidden",
+              position: "absolute",
+              zIndex: "999",
+              right: "0.1rem",
+              p: 2,
+            }}
+          >
+            <Box>
+              {platos.map((plato) => (
+                <Typography>
+                  Cantidad de Porciones: {plato.porciones}
+                </Typography>
+              ))}
+            </Box>
+          </Card>
+        </Box>
+      ) : (
+        <>
+          <Typography>{name}</Typography>
+        </>
+      )}
     </>
   );
 };
