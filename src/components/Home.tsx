@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 // import { NavLink } from "react-router-dom";
 import DataMenu from "../module/home/mocks/data.json";
 import "../css/home.css";
@@ -6,6 +6,7 @@ import "../css/home.css";
 import { Box, Card, Grid, Typography } from "@mui/material";
 import useMediaquery from "../utilities/useMediaquery";
 import CardIcon from "../module/home/ui/CardIcon";
+import MenuList from "../module/home/ui/MenuList";
 
 const Home = () => {
   // const theme = useTheme();
@@ -37,8 +38,6 @@ const Home = () => {
 
   const urlImage =
     "https://media.istockphoto.com/id/668221242/es/foto/comunicaci%C3%B3n-de-la-gente-partido-hablando-el-concepto-de-felicidad.webp?b=1&s=612x612&w=0&k=20&c=UC2jjeRL7pk8hjsaPMkDQlGXFgZ4QNR4tcp3F0Ac7iI=";
-
-  const idsSemana1 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
   const idsSemana2 = [
     "11",
     "12",
@@ -52,37 +51,22 @@ const Home = () => {
     "20",
   ];
   const idsSemana3 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-  const idsSemana4 = [
-    "31",
-    "32",
-    "33",
-    "34",
-    "35",
-    "36",
-    "37",
-    "38",
-    "39",
-    "40",
-  ];
-  const idsSemana5 = [
-    "21",
-    "22",
-    "23",
-    "24",
-    "25",
-    "26",
-    "27",
-    "28",
-    "29",
-    "30",
-  ];
+
+  function getRandomIds(max: number, count: number) {
+    const ids = Array.from({ length: max }, (_, i) => i + 1);
+    return Array.from(
+      { length: count },
+      () => ids.splice(Math.floor(Math.random() * ids.length), 1)[0]
+    );
+  }
+
+  // Obtener 5 IDs aleatorios
+  const randomIds = getRandomIds(20, 5);
 
   const getMenuList = (iconIndex: number) => {
     switch (iconIndex) {
       case 0:
-        return DataMenu.menus.filter(
-          (item) => !idsSemana1.includes(item.id.toString())
-        );
+        return DataMenu.menus.filter((item) => !randomIds.includes(item.id));
       case 1:
         return DataMenu.menus.filter(
           (item) => !idsSemana2.includes(item.id.toString())
@@ -92,13 +76,9 @@ const Home = () => {
           (item) => !idsSemana3.includes(item.id.toString())
         );
       case 3:
-        return DataMenu.menus.filter(
-          (item) => !idsSemana4.includes(item.id.toString())
-        );
+        return DataMenu.menus.filter((item) => !randomIds.includes(item.id));
       default:
-        return DataMenu.menus.filter(
-          (item) => !idsSemana5.includes(item.id.toString())
-        );
+        return DataMenu.menus.filter((item) => !randomIds.includes(item.id));
     }
   };
 
@@ -179,34 +159,42 @@ const Home = () => {
             ))}
           </Box>
         </Grid>
-        <Grid item xs={12}>
-          <Box sx={{ display: "flex", gap: 2, justifyContent: "center" }}>
-            <div>
-              <h2>Menús:</h2>
-              <ul>
-                {menus.map((menu) => (
-                  <>
-                    <li key={menu.id}>{menu.nombre}</li>
-                    <Card
-                      className="platosDeMenu"
-                      sx={{
-                        "&:hover": {
-                          ".platosDeMenu": {},
-                        },
-                      }}
-                    >
-                      <Box>
-                        {menu.platos.map((plato) => (
-                          <Typography>
-                            Cantidad de Porciones: {plato.porciones}
-                          </Typography>
-                        ))}
-                      </Box>
-                    </Card>
-                  </>
-                ))}
-              </ul>
-            </div>
+        <Grid
+          item
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Box
+            sx={{
+              width: "50%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 2,
+              justifyContent: "center",
+            }}
+          >
+            <h2>Menús de la semana</h2>
+            <Card
+              variant="outlined"
+              sx={{
+                p: 2,
+                alignSelf: "start",
+              }}
+            >
+              {menus.map((menu) => (
+                <MenuList
+                  id={menu.id.toString()}
+                  name={menu.nombre}
+                  platos={menu.platos}
+                  key={menu.id}
+                />
+              ))}
+            </Card>
           </Box>
         </Grid>
       </Grid>

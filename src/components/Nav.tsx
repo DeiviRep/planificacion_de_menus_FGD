@@ -16,12 +16,12 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 // import MailIcon from "@mui/icons-material/Mail";
 import HomeIcon from "@mui/icons-material/Home";
 import RamenDiningIcon from "@mui/icons-material/RamenDining";
 import { NavLink } from "react-router-dom";
 import "../css/nav.css";
+import { Grid } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -190,7 +190,11 @@ export const MiNav: FC<PropsWithChildren<Props>> = ({
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        {children}
+        <Grid container spacing={1}>
+          <Grid item xs={12}>
+            {children}
+          </Grid>
+        </Grid>
       </Main>
     </Box>
   );
