@@ -19,6 +19,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 // import MailIcon from "@mui/icons-material/Mail";
 import HomeIcon from "@mui/icons-material/Home";
+import RamenDiningIcon from "@mui/icons-material/RamenDining";
 import { NavLink } from "react-router-dom";
 import "../css/nav.css";
 
@@ -103,7 +104,7 @@ export const MiNav: FC<PropsWithChildren<Props>> = ({
       nombre: "Menu",
       ruta: "/menu",
       color: "#155b7f",
-      icono: <InboxIcon />,
+      icono: <RamenDiningIcon />,
     },
   ];
   return (
