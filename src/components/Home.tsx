@@ -106,13 +106,13 @@ const Home = () => {
               ...displayFlex,
               position: "absolute",
               zIndex: "1",
-              background: "rgba(255, 255, 255, 0.7)",
+              background: "rgba(25,27,38,0.5)",
               transition: "background 0.3s ease",
               "&:hover": {
-                background: "rgba(255, 255, 255, 0.4)",
+                background: "rgba(25,27,38,0.4)",
                 transition: "background 0.3s ease",
                 ".subtitle": {
-                  background: "rgba(255, 255, 255, 0.6)",
+                  background: "rgba(25,27,38,0.6)",
                 },
               },
               width: "100%",
