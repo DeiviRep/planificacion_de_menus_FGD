@@ -9,6 +9,7 @@ export interface DataProps {
   id: string;
   name: string;
   platos: Plato[];
+  iconComponent?: JSX.Element;
   selected?: boolean;
   onSelect?: () => void;
 }
@@ -16,21 +17,36 @@ const MenuList: FC<DataProps> = ({
   id,
   name = "escoja un plato de la semana",
   platos,
+  iconComponent,
+  onSelect,
 }) => {
   return (
     <>
       {name ? (
         <Box
           sx={{
+            display: "flex",
             width: "100%",
             "&:hover": {
               ".platosDeMenu": {
                 visibility: "visible",
                 background: "gray",
               },
+              ".elimina": {
+                opacity: 1,
+              },
             },
           }}
         >
+          <IconButton
+            sx={{
+              opacity: 0,
+            }}
+            className="elimina"
+            onClick={onSelect}
+          >
+            {iconComponent}
+          </IconButton>
           <IconButton
             sx={{
               borderRadius: 0,

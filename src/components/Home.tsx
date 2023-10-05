@@ -3,14 +3,24 @@ import { useState } from "react";
 import DataMenu from "../module/home/mocks/data.json";
 import "../css/home.css";
 // import BanerVienvenida from "./Baner";
-import { Box, Card, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  Dialog,
+  DialogTitle,
+  Grid,
+  Typography,
+} from "@mui/material";
 import useMediaquery from "../utilities/useMediaquery";
 import CardIcon from "../module/home/ui/CardIcon";
 import MenuList from "../module/home/ui/MenuList";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Button from "@mui/material/Button";
 
 const Home = () => {
   // const theme = useTheme();
   const { sm, xs, md } = useMediaquery();
+  const [openDialog, setOpenDialog] = useState(false);
   const displayFlex = {
     display: "flex",
     justifyContent: "center",
@@ -82,10 +92,36 @@ const Home = () => {
     }
   };
 
+  const eliminar = (idMenu: string) => {
+    handleClickOpen();
+    console.log(idMenu);
+  };
+
+  const handleClickOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const handleClose = () => {
+    setOpenDialog(false);
+    // setSelectedValue(value);
+  };
+
+  const eliminarRecurso = () => {
+    setOpenDialog(false);
+    // setSelectedValue(value);
+  };
+
   const menus = selectedIcon !== null ? getMenuList(selectedIcon) : [];
   return (
     <>
       {/* <BanerVienvenida urlImg={urlBanerImg} /> */}
+      <Dialog onClose={handleClose} open={openDialog}>
+        <DialogTitle>Esta seguro de eliminar un menu</DialogTitle>
+        <Box display={"flex"} justifyContent={"space-around"}>
+          <Button onClick={handleClose}>Aceptar</Button>
+          <Button onClick={eliminarRecurso}>Cancelar</Button>
+        </Box>
+      </Dialog>
       <Grid container spacing={2}>
         <Grid
           item
@@ -194,6 +230,8 @@ const Home = () => {
                   name={menu.nombre}
                   platos={menu.platos}
                   key={menu.id}
+                  iconComponent={<DeleteIcon />}
+                  onSelect={() => eliminar(menu.id.toString())}
                 />
               ))}
             </Card>
